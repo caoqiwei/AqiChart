@@ -1,0 +1,86 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controls\**" />
+    <EmbeddedResource Remove="Controls\**" />
+    <None Remove="Controls\**" />
+    <Page Remove="Controls\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Avatar\avatar01.png" />
+    <None Remove="Resources\Avatar\avatar02.png" />
+    <None Remove="Resources\Avatar\avatar03.png" />
+    <None Remove="Resources\Avatar\avatar04.png" />
+    <None Remove="Resources\Avatar\avatar05.png" />
+    <None Remove="Resources\Avatar\avatar06.png" />
+    <None Remove="Resources\Avatar\avatar07.png" />
+    <None Remove="Resources\Avatar\avatar08.png" />
+    <None Remove="Resources\Avatar\avatar09.png" />
+    <None Remove="Resources\Avatar\avatar10.png" />
+    <None Remove="Resources\Avatar\avatar11.png" />
+    <None Remove="Resources\Avatar\avatar12.png" />
+    <None Remove="Resources\Avatar\avatar13.png" />
+    <None Remove="Resources\Avatar\avatar14.png" />
+    <None Remove="Resources\Avatar\avatar15.png" />
+    <None Remove="Resources\Avatar\avatar16.png" />
+    <None Remove="Resources\Avatar\avatar17.png" />
+    <None Remove="Resources\Avatar\avatar18.png" />
+    <None Remove="Resources\Avatar\avatar19.png" />
+    <None Remove="Resources\Avatar\avatar20.png" />
+    <None Remove="Resources\Avatar\avatar21.png" />
+    <None Remove="Resources\favicon.ico" />
+    <None Remove="Resources\Font\iconfont.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="5.0.258" />
+    <PackageReference Include="Hardcodet.Wpf.TaskbarNotification.Core" Version="2.0.0" />
+    <PackageReference Include="log4net" Version="3.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AqiChart.Model\AqiChart.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Avatar\avatar01.png" />
+    <Resource Include="Resources\Avatar\avatar02.png" />
+    <Resource Include="Resources\Avatar\avatar03.png" />
+    <Resource Include="Resources\Avatar\avatar04.png" />
+    <Resource Include="Resources\Avatar\avatar05.png" />
+    <Resource Include="Resources\Avatar\avatar06.png" />
+    <Resource Include="Resources\Avatar\avatar07.png" />
+    <Resource Include="Resources\Avatar\avatar08.png" />
+    <Resource Include="Resources\Avatar\avatar09.png" />
+    <Resource Include="Resources\Avatar\avatar10.png" />
+    <Resource Include="Resources\Avatar\avatar11.png" />
+    <Resource Include="Resources\Avatar\avatar12.png" />
+    <Resource Include="Resources\Avatar\avatar13.png" />
+    <Resource Include="Resources\Avatar\avatar14.png" />
+    <Resource Include="Resources\Avatar\avatar15.png" />
+    <Resource Include="Resources\Avatar\avatar16.png" />
+    <Resource Include="Resources\Avatar\avatar17.png" />
+    <Resource Include="Resources\Avatar\avatar18.png" />
+    <Resource Include="Resources\Avatar\avatar19.png" />
+    <Resource Include="Resources\Avatar\avatar20.png" />
+    <Resource Include="Resources\Avatar\avatar21.png" />
+    <Resource Include="Resources\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Font\iconfont.ttf" />
+    <Resource Include="Resources\Images\avatar.png" />
+    <Resource Include="Resources\Images\head.jpg" />
+    <Resource Include="Resources\Images\SampleOne.jpg" />
+  </ItemGroup>
+
+</Project>

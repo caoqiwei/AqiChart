@@ -1,0 +1,15 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:converters="clr-namespace:AqiChart.Client.Data">
+
+    <FontFamily x:Key="iconfont">pack://application:,,,/AqiChart.Client;component/Resources/Font/#iconfont</FontFamily>
+    
+    <SolidColorBrush x:Key="bgWindowsBrush" Color="White" />
+    <SolidColorBrush x:Key="bgColor" Color="#06B75B" />
+
+    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <!--BoolToVisibilityConverter-->
+
+    <ImageSource x:Key="UserHead">/AqiChart.Client;component/Resources/Images/head.jpg</ImageSource>
+
+</ResourceDictionary>

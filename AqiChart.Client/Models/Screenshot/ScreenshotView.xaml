@@ -1,0 +1,272 @@
+<UserControl x:Class="AqiChart.Client.Models.Screenshot.ScreenshotView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AqiChart.Client.Models.Screenshot"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors" 
+             
+            Height="600" 
+            Width="900"
+            MinHeight="500"
+            MinWidth="700"
+            Background="#F8F9FA">
+
+    <UserControl.Resources>
+        <!-- 按钮样式 -->
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource PrimaryButtonStyle}">
+            <!-- 继承App.xaml中的样式 -->
+        </Style>
+
+        <!-- 截图项样式 -->
+        <Style x:Key="ScreenshotItemStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <!-- 操作按钮样式 -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F5F5F5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <!-- 主布局 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Border Grid.Row="0" 
+                Background="#0078D7" 
+                Padding="20,15"
+                CornerRadius="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo和标题 -->
+                <StackPanel Grid.Column="0" 
+                            Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+                    <TextBlock Text="📷" 
+                               FontSize="24"
+                               VerticalAlignment="Center"
+                               Margin="0,0,10,0"/>
+                    <TextBlock Text="QQ截图工具" 
+                               FontSize="20" 
+                               FontWeight="Bold" 
+                               Foreground="White"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- 快捷键提示 -->
+                <TextBlock Grid.Column="1" 
+                           Text="快捷键: Ctrl+Alt+A"
+                           Foreground="#CCE5FF"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="14"/>
+
+            </Grid>
+        </Border>
+
+        <!-- 主内容区域 -->
+        <Grid Grid.Row="1" Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- 左侧控制面板 -->
+            <Border Grid.Column="0" 
+                    Background="White" 
+                    BorderBrush="#E0E0E0" 
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="20"
+                    Margin="0,0,10,0">
+                <StackPanel>
+                    <TextBlock Text="快速操作" 
+                               FontSize="18" 
+                               FontWeight="Bold"
+                               Margin="0,0,0,25"/>
+
+                    <!-- 截图按钮 -->
+                    <Button x:Name="ScreenshotButton" 
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Content="开始截图"
+                            cal:Message.Attach="StartScreenshot()"
+                            Margin="0,0,0,15">
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock Text="开始截图 (Ctrl+Alt+A)"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+
+                    <!-- 快捷键提示 -->
+                    <Border Background="#F8F9FA" 
+                            BorderBrush="#E9ECEF" 
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            Padding="15"
+                            Margin="0,0,0,25">
+                        <StackPanel>
+                            <TextBlock Text="快捷键列表" 
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,10"/>
+
+                            <StackPanel>
+                                <TextBlock Text="• Ctrl+Alt+A: 截图"/>
+                                <TextBlock Text="• ESC: 取消截图"/>
+                                <TextBlock Text="• Enter: 确认选区"/>
+                                <TextBlock Text="• Ctrl+S: 保存截图"/>
+                                <TextBlock Text="• Ctrl+C: 复制截图"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+
+            <!-- 右侧截图历史 -->
+            <Border Grid.Column="1" 
+                    Background="White" 
+                    BorderBrush="#E0E0E0" 
+                    BorderThickness="1"
+                    CornerRadius="8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 历史标题 -->
+                    <Border Grid.Row="0" 
+                            Background="#F8F9FA" 
+                            BorderBrush="#E0E0E0" 
+                            BorderThickness="0,0,0,1"
+                            CornerRadius="8,8,0,0"
+                            Padding="20,15">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="📁" 
+                                       FontSize="16"
+                                       VerticalAlignment="Center"/>
+                            <TextBlock Text="截图" 
+                                       FontSize="18" 
+                                       FontWeight="Bold"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                            <TextBlock x:Name="HistoryCountText" 
+                                       Text="(0)"
+                                       Foreground="#666666"
+                                       VerticalAlignment="Center"
+                                       Margin="5,0,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- 截图列表 -->
+                    <ScrollViewer Grid.Row="1" 
+                                  VerticalScrollBarVisibility="Auto"
+                                  Padding="20">
+                        <Grid>
+                            <StackPanel x:Name="ScreenshotListPanel"/>
+
+                            <!-- 空状态提示 -->
+                            <Border x:Name="EmptyState" 
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0,50">
+                                <StackPanel HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="📷" 
+                                               FontSize="48"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,20"
+                                               Opacity="0.3"/>
+                                    <TextBlock Text="暂无截图" 
+                                               FontSize="20" 
+                                               FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,10"/>
+                                    <TextBlock Text="点击左侧《开始截图》按钮" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,5"/>
+                                    <TextBlock Text="或使用快捷键 Ctrl+Alt+A" 
+                                               Foreground="#666666"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Border Grid.Row="2" 
+                Background="#F1F3F4" 
+                BorderBrush="#E0E0E0" 
+                BorderThickness="0,1,0,0"
+                Padding="15,10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="StatusText" 
+                           Text="就绪 - 按 Ctrl+Alt+A 开始截图" 
+                           VerticalAlignment="Center"/>
+
+                <StackPanel Grid.Column="1" 
+                            Orientation="Horizontal">
+                    <TextBlock Text="版本 1.0.0" 
+                               VerticalAlignment="Center"
+                               Margin="0,0,15,0"
+                               Foreground="#666666"/>
+                    <TextBlock Text="🎯" 
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
