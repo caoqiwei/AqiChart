@@ -14,7 +14,7 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ���� Serilog
+// 配置 Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -31,19 +31,19 @@ try
 {
 
 
-    builder.Host.UseSerilog(); // ʹ�� Serilog
+    builder.Host.UseSerilog(); // 使用 Serilog
 
     //SqlSugarHelper.ConnectionString = builder.Configuration.GetConnectionString("ConnectionStrings");
     SqlSugarHelper.ConnectionString = builder.Configuration["ConnectionStrings:conn"];
 
 
-    // ���� JWT ����
+    // 添加 JWT 服务
     var jwtKey = builder.Configuration["Jwt:Key"];
     var jwtIssuer = builder.Configuration["Jwt:Issuer"];
     var jwtAudience = builder.Configuration["Jwt:Audience"];
     builder.Services.AddSingleton(new JwtService(jwtKey, jwtIssuer, jwtAudience));
 
-    // ���� JWT ��֤
+    // 配置 JWT 认证
     builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options =>
         {
@@ -59,7 +59,7 @@ try
             };
         });
 
-    // ���ӿ�����
+    // 添加控制器
     builder.Services.AddControllers(options =>
     {
         //options.Filters.Add(typeof(ModelValidateActionFilterAttribute));
@@ -67,22 +67,22 @@ try
     })
     .AddNewtonsoftJson(options =>
     {
-        //����ѭ������
+        //忽略循环引用
         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
         //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
     });
 
-    // ����ҵ�����
+    // 添加业务服务
     builder.Services.AddScoped<IUserBiz, UserBiz>();
     builder.Services.AddScoped<IPrivateChatBiz, PrivateChatBiz>();
     builder.Services.AddScoped<IFriendshipsBiz, FriendshipsBiz>();
 
-    // ���� SignalR
+    // 添加 SignalR
     builder.Services.AddSignalR();
 
-    // ǿ��JSON��ʽ
+    // 强制JSON格式
     builder.Services.AddMvc().AddJsonOptions(opt =>
     {
         opt.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -94,9 +94,9 @@ try
     builder.Services.AddSwaggerGen();
     var app = builder.Build();
 
-    app.UseSerilogRequestLogging(); // �Զ���¼HTTP����
+    app.UseSerilogRequestLogging(); // 自动记录HTTP请求
 
-    // �����м��
+    // 配置中间件
     //if (app.Environment.IsDevelopment())
     //{
     //    app.UseDeveloperExceptionPage();
@@ -111,7 +111,7 @@ try
         app.UseSwaggerUI();
     }
 
-    app.UseMiddleware<ExceptionFilter>();//�Զ����쳣����
+    app.UseMiddleware<ExceptionFilter>();//自定义异常处理
 
     app.UseAuthentication();
     app.UseAuthorization();
