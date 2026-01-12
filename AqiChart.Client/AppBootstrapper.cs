@@ -26,16 +26,16 @@ namespace AqiChart.Client {
         protected override void Configure() {
             log4net.Config.XmlConfigurator.Configure();
             _container = new SimpleContainer();
-            #region ��������
-            var frame = new Frame(); // WPF �� Frame �ؼ�
+            #region 导航服务
+            var frame = new Frame(); // WPF 的 Frame 控件
             _container.Instance(frame);
             _container.Singleton<INavigationService, FrameAdapter>();
             #endregion
-            // ע�����
+            // 注册服务
             _container.Singleton<IWindowManager, WindowManager>();
             _container.Singleton<IEventAggregator, EventAggregator>();
 
-            // ע�� ViewModel
+            // 注册 ViewModel
             // _container.PerRequest<IShell, MainViewModel>();
             // _container.PerRequest<IShell, LoginViewModel>();
             _container.PerRequest<LoginViewModel>();
@@ -63,7 +63,7 @@ namespace AqiChart.Client {
         }
 
         /// <summary>
-        /// ȫ���쳣����
+        /// 全局异常处理
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
